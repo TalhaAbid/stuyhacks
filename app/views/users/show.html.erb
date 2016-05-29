@@ -1,0 +1,36 @@
+<%  require 'forecast_io' 
+require "json"
+require 'uri'
+%>
+<div class="wrapper" style="text-align:center;">
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Latitude:</strong>
+  <%= @user.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @user.longitude %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Adress:</strong>
+  <%= @user.adress %>
+</p>
+
+<p>
+  <strong>Travel to:</strong>
+  <%= @user.travelto %>
+</p>
+<%= link_to 'index', 'users_path#index' %>&nbsp; <br>
+<% ForecastIO.configure do |configuration|
+  configuration.api_key = 'e7cf396662ff836ba8306e8ce7ba9d9d'
+end %>
+<%= forecast = JSON.parse(ForecastIO.forecast(@user.latitude, @user.longitude).to_json)['daily']['summary'] %>
+</div>
